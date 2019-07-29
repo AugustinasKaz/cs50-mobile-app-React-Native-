@@ -1,58 +1,87 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Button} from 'react-native';
+import { Text, View, StyleSheet, Button } from 'react-native';
 import { Constants } from 'expo';
 
 class Counter extends React.Component {
   state = {
     minutes: 24,
     seconds: 60,
+  };
+
+  componentWillReceiveProps(){
+    this.timer = setInterval(this.dicrease, 1000);
   }
-  
-  componentDidMount() {
-    this.timer = setInterval(this.dicrease, 1000)
-  }
-  
-  componentWillUnmount(){
-    clearInterval(this.timer)
-  }
-  dicrease = () => {
-    this.setState(prevState => ({seconds: prevState.seconds - 1}))
-    if(this.state.seconds == 0){
-      this.setState(prevState => ({minutes: prevState.minutes - 1, seconds: 60}))
+  componentWillUpdate() {
+    if (this.props.stop) {
+      clearInterval(this.timer)
+      return false;
+    }
+    else{
+      return true;
     }
   }
-  
+  componentDidMount() {
+    this.timer = setInterval(this.dicrease, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+  dicrease = () => {
+    this.setState(prevState => ({ seconds: prevState.seconds - 1 }));
+    if (this.state.seconds == 0) {
+      this.setState(prevState => ({
+        minutes: prevState.minutes - 1,
+        seconds: 60,
+      }));
+    }
+  };
+
   render() {
-    return <Text>{this.state.minutes} : {this.state.seconds}</Text>
+    return (
+      <Text>
+        {this.state.minutes} : {this.state.seconds}
+      </Text>
+    );
   }
 }
 
 export default class App extends Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
-      stop: true,
-    }
+      start: false,
+      stop: false,
+    };
   }
 
-  startCount = () => this.setState(prevState => ({ start: !prevState.start,}));
+  startCount = () => this.setState(prevState => ({ start: !prevState.start }));
+  stopCount = () => this.setState(prevState => ({ stop: !prevState.stop }));
 
-  stopCount = () => 
   render() {
-    if(this.state.start){
-    return (
-      <View style={styles.container}>
-      <Button title="Reset" onPress={this.startCount}/>
-      <Button title="Stop" onPress={this.stopCount}/>
-        <Counter />
-      </View>
-    );
-    }
-    else{
-      return(
-      <View style={styles.container}>
-      <Button title="Start" onPress={this.startCount}/>
-      </View>
+    if (this.state.start) {
+      if (this.state.stop) {
+        return (
+          <View style={styles.container}>
+            <Button title="Reset" onPress={this.startCount} />
+            <Button title="Continue" onPress={this.stopCount} />
+            <Counter stop={this.state.stop}  con="er"/>
+          </View>
+        );
+      } else {
+        return (
+          <View style={styles.container}>
+            <Button title="Reset" onPress={this.startCount} />
+            <Button title="Stop" onPress={this.stopCount} />
+            <Counter stop={this.state.stop} />
+          </View>
+        );
+      }
+    } else {
+      return (
+        <View style={styles.container}>
+          <Button title="Start" onPress={this.startCount} />
+        </View>
       );
     }
   }
