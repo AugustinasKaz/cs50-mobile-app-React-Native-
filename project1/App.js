@@ -2,88 +2,71 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, Button } from 'react-native';
 import { Constants } from 'expo';
 
-class Counter extends React.Component {
+const DURATION = 10000;
+export default class App extends Component  {
   state = {
-    minutes: 24,
-    seconds: 60,
+    min: 24,
+    sec: 59,
+    running: false,
+    breakk: false
   };
-
-  componentWillReceiveProps(){
-    this.timer = setInterval(this.dicrease, 1000);
+  
+  componentDidMount() {
+     this.activate(this.state.running);
   }
-  componentWillUpdate() {
-    if (this.props.stop) {
-      clearInterval(this.timer)
-      return false;
+  shouldComponentUpdate(){
+    if(this.state.min == 0 && this.state.sec == 0){
+      if(this.state.breakk == false){
+      clearInterval(this.timer);
+      this.setState({ min: 4, sec: 59, breakk: true});
+      this.activate(this.state.running);
+      }
+      else{
+        this.setState({ min: 24, sec: 59, breakk: false});
+        clearInterval(this.timer);
+        this.activate(this.state.running);
+      }
+    }
+    return true;
+  }
+  activate = (bool) => {
+      if (bool) {
+      this.timer = setInterval(this.dicrease, 1000)
     }
     else{
-      return true;
+      clearInterval(this.timer)
     }
   }
-  componentDidMount() {
-    this.timer = setInterval(this.dicrease, 1000);
-  }
 
-  componentWillUnmount() {
-    clearInterval(this.timer);
-  }
+  
   dicrease = () => {
-    this.setState(prevState => ({ seconds: prevState.seconds - 1 }));
-    if (this.state.seconds == 0) {
-      this.setState(prevState => ({
-        minutes: prevState.minutes - 1,
-        seconds: 60,
-      }));
+    this.setState(prevState => ({ sec: prevState.sec - 1 }));
+    if (this.state.sec == 0) {
+      this.setState(prevState => ({min: prevState.min - 1, sec: 59}));
     }
   };
-
+  
+  startStop = () =>{
+    this.setState(prevState => ({ running: !prevState.running }));
+    this.activate(!this.state.running);
+    Vibration.vibrate(DURATION);
+  }
+  reset = () =>{
+    clearInterval(this.timer);
+    this.setState({min: 24, sec: 59});
+    this.setState({running: false });
+  } 
   render() {
     return (
-      <Text>
-        {this.state.minutes} : {this.state.seconds}
-      </Text>
+      <View style={styles.container}>
+      <Text style={styles.title}> {this.state.breakk ? "Break time": "Working time"} </Text>
+      <Text style={styles.time}>{this.state.min > 9 ? this.state.min : '0'+this.state.min} : {this.state.sec > 9 ? this.state.sec : '0'+this.state.sec}</Text>
+      <View style={{ display: 'flex', flexDirection: 'row' }}>
+        <Button title="Reset" onPress={this.reset} />
+        <Button title={this.state.running ? 'Stop' : "Start"} onPress={this.startStop} />
+         </View>
+      </View>
     );
-  }
-}
-
-export default class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      start: false,
-      stop: false,
-    };
-  }
-
-  startCount = () => this.setState(prevState => ({ start: !prevState.start }));
-  stopCount = () => this.setState(prevState => ({ stop: !prevState.stop }));
-
-  render() {
-    if (this.state.start) {
-      if (this.state.stop) {
-        return (
-          <View style={styles.container}>
-            <Button title="Reset" onPress={this.startCount} />
-            <Button title="Continue" onPress={this.stopCount} />
-            <Counter stop={this.state.stop}  con="er"/>
-          </View>
-        );
-      } else {
-        return (
-          <View style={styles.container}>
-            <Button title="Reset" onPress={this.startCount} />
-            <Button title="Stop" onPress={this.stopCount} />
-            <Counter stop={this.state.stop} />
-          </View>
-        );
-      }
-    } else {
-      return (
-        <View style={styles.container}>
-          <Button title="Start" onPress={this.startCount} />
-        </View>
-      );
-    }
   }
 }
 
@@ -92,7 +75,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: Constants.statusBarHeight,
     backgroundColor: '#ecf0f1',
   },
+  time: {
+    fontSize: 48,
+  },
+  title:{
+    fontSize:36,
+    fontFamily: 'Roboto',
+  }
 });
