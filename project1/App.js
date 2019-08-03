@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
-import { Constants } from 'expo';
+import { Text, View, StyleSheet, Button, Vibration } from 'react-native';
 
-const DURATION = 10000;
 export default class App extends Component  {
   state = {
     min: 24,
@@ -26,6 +24,7 @@ export default class App extends Component  {
         clearInterval(this.timer);
         this.activate(this.state.running);
       }
+      Vibration.vibrate(500);
     }
     return true;
   }
@@ -49,7 +48,6 @@ export default class App extends Component  {
   startStop = () =>{
     this.setState(prevState => ({ running: !prevState.running }));
     this.activate(!this.state.running);
-    Vibration.vibrate(DURATION);
   }
   reset = () =>{
     clearInterval(this.timer);
