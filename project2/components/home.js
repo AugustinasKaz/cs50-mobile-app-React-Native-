@@ -1,10 +1,10 @@
 import React from 'react';
 import {StyleSheet,TextInput, View, Text} from 'react-native';
-import {fetchData} from './api.js'
+import List from './list.js';
 
 export default class Home extends React.Component{
-    constructor(){
-     super()
+    constructor(props){
+     super(props)
      this.state ={
         search: '',
      }
@@ -12,13 +12,11 @@ export default class Home extends React.Component{
     update = (text) =>{
         this.setState({search: text})
     }
-    componentDidUpdate(){
-        fetchData(this.state.search).then(response => console.log(response.Title));           
-    }
     render(){
         return(
             <View>
                 <TextInput style={styles.input} value={this.state.search} onChangeText={this.update}/>
+                <List search={this.state.search}/>
             </View>
         );
     }
@@ -30,11 +28,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
           },
   });
-
-
-
-
-
 
 
 
