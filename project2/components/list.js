@@ -1,11 +1,9 @@
 import React from 'react';
-import {StyleSheet, View, Text,FlatList, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, Text, FlatList, TouchableOpacity} from 'react-native';
 import {fetchData} from './api.js'
+import { withNavigation } from 'react-navigation';
 
-
-
-
-export default class Home extends React.Component{
+class List extends React.Component{
     constructor(props){
      super(props)
      this.state ={
@@ -13,16 +11,18 @@ export default class Home extends React.Component{
      }
     }
     
-
     componentDidUpdate(prevProps){
         if(this.props.search !== prevProps.search)
-            fetchData(this.props.search).then(response => {
-               //console.log(response) 
+            fetchData(this.props.search).then(response => { 
                if(response !== false) 
                  this.setState({array: response})
             });                   
     }
-
+    
+    PressMovie = (name) =>{
+        this.props.navigation.navigate('route2', {name: name})
+    }
+    
     render(){
         return(
             <View>
@@ -30,22 +30,25 @@ export default class Home extends React.Component{
                 data={this.state.array}
                 keyExtractor={item => item.id}
                 renderItem={obj =>
-                <TouchableOpacity onPress={console.log("click")} >
-                <Text>{obj.item.title}</Text>
+                <TouchableOpacity  onPress={()=> this.PressMovie(obj.item.title)} >
+                <Text style={styles.list_item}>{obj.item.title}</Text>
                 </TouchableOpacity>}/>  
             </View>
         );
     }
 }
 
+export default withNavigation(List);
+
 const styles = StyleSheet.create({
-    input: {
+    list_item: {
+        margin: 10,
+        fontSize: 16,
+        justifyContent: 'center',
+        alignItems: 'center',
         borderColor: 'blue',
         borderWidth: 1,
-          },
+    },
   });
-
-
-
 
 

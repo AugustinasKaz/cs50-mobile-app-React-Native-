@@ -1,8 +1,11 @@
 import React from 'react';
-import {StyleSheet,TextInput, View, Text} from 'react-native';
-import List from './list.js';
+import {StyleSheet,TextInput, View} from 'react-native';
+import List from './list.js'
 
-export default class Home extends React.Component{
+export default class HomeScreen extends React.Component{
+    static navigationOptions = {
+        title: 'Home',
+      };
     constructor(props){
      super(props)
      this.state ={
@@ -24,9 +27,17 @@ export default class Home extends React.Component{
 
 const styles = StyleSheet.create({
     input: {
+        marginTop: 20,
+        marginRight: 10,
+        marginLeft: 10,
+        marginBottom: 20,
+        padding: 5,
+        fontSize: 16,
+        justifyContent: 'center',
+        alignItems: 'center',
         borderColor: 'blue',
-        borderWidth: 1,
-          },
+        borderWidth: 3,
+    },
   });
 
 

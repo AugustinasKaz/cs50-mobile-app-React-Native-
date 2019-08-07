@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 
+
 const extractMovie = movie => ({
   title: movie.Title,
   type: movie.Type,
@@ -17,5 +18,14 @@ export const fetchData = async (data) => {
   }
   else
    return false;
+}
+
+export const fetchMovieData = async (name) => {
+  const promise = await axios.get('http://www.omdbapi.com/?apikey=9abbfc0&', {params: {t: name}})
+  if(promise.status === 200){
+    console.log(promise.data)
+  }
+  else
+    return 'hello';
 }
 

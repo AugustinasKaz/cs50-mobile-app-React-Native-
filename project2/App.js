@@ -1,21 +1,17 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, Text, View } from 'react-native';
+import { createAppContainer,createStackNavigator } from 'react-navigation';
+import HomeScreen from './components/homeScreen.js'
+import MovieScreen from './components/movieScreen.js'
 
 export default class App extends React.Component {
   render() {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-      </View>
-    );
+    return <AppContainer />;
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+const MyNavigator = createStackNavigator({
+    route1: HomeScreen,
+    route2: MovieScreen,
 });
+
+const AppContainer = createAppContainer(MyNavigator);
