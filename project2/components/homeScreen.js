@@ -17,7 +17,7 @@ export default class HomeScreen extends React.Component{
     }
     render(){
         return(
-            <View>
+            <View style={styles.container1}>
                 <TextInput style={styles.input} value={this.state.search} onChangeText={this.update}/>
                 <List search={this.state.search}/>
             </View>
@@ -35,9 +35,14 @@ const styles = StyleSheet.create({
         fontSize: 16,
         justifyContent: 'center',
         alignItems: 'center',
-        borderColor: 'blue',
+        borderColor: '#002080',
         borderWidth: 3,
+        backgroundColor: 'white'
     },
+    container1:{
+        flex:1,
+        backgroundColor:'#809fff',
+    }
   });
 
 

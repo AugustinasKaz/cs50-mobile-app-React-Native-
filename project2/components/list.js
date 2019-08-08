@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, Text, FlatList, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, Text, FlatList, TouchableOpacity, Image,} from 'react-native';
 import {fetchData} from './api.js'
 import { withNavigation } from 'react-navigation';
 
@@ -25,14 +25,24 @@ class List extends React.Component{
     
     render(){
         return(
-            <View>
+            <View style={styles.list}>
                <FlatList
                 data={this.state.array}
                 keyExtractor={item => item.id}
                 renderItem={obj =>
-                <TouchableOpacity  onPress={()=> this.PressMovie(obj.item.title)} >
-                <Text style={styles.list_item}>{obj.item.title}</Text>
-                </TouchableOpacity>}/>  
+                <TouchableOpacity onPress={()=> this.PressMovie(obj.item.title)} >
+                <View style={styles.view}>
+                 <Image style={styles.img} resizeMode='stretch' source={obj.item.poster_url !== 'N/A' ? { uri: obj.item.poster_url } : {uri:'https://dummyimage.com/600x400/524f52/808fff.jpg&text=No+image'}}/>
+                 <View style={styles.column}>
+                     <Text style={styles.title}>{obj.item.title}</Text>
+                     <View style={styles.row}>
+                         <Text>({obj.item.year})</Text>
+                         <Text>&nbsp;{obj.item.type}</Text>
+                     </View>
+                 </View>
+                </View>
+                </TouchableOpacity>}>
+                </FlatList>
             </View>
         );
     }
@@ -41,14 +51,51 @@ class List extends React.Component{
 export default withNavigation(List);
 
 const styles = StyleSheet.create({
-    list_item: {
-        margin: 10,
-        fontSize: 16,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderColor: 'blue',
-        borderWidth: 1,
+    textinput: {
+        backgroundColor: '#fff',
+        padding: 8,
     },
-  });
+    img: {
+        marginRight: 10,
+        height: 100,
+        width: 100,
+        backgroundColor: '#524f52'
+    },
+    view: {
+        margin: 10,
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        flexWrap: 'wrap',
+    },
+    title: {
+        fontSize: 14,
+        fontWeight: 'bold',
+        flexWrap: 'wrap',
+        maxWidth: 300
+    },
+    column: {
+        flex: 1,
+        flexDirection: 'column',
+    },
+    row: {
+        flex: 1,
+        flexDirection: 'row',
+    },
+    list:{
+        flex: 1,
+    }
+});
 
 
+/*<FlatList
+                data={this.state.array}
+                keyExtractor={item => item.id}
+                renderItem={obj =>
+                <TouchableOpacity  onPress={()=> this.PressMovie(obj.item.title)} >
+                <Image source={{uri: obj.item.poster_url}} style={styles.img}/>
+                <Text>{obj.item.title}</Text>
+                </TouchableOpacity>}>
+                </FlatList>*/

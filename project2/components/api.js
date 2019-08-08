@@ -9,10 +9,10 @@ const extractMovie = movie => ({
   id: movie.imdbID,
   poster_url: movie.Poster
 })
+
 export const fetchData = async (data) => {
   const promise = await axios.get('http://www.omdbapi.com/?apikey=9abbfc0&', {params: {s: data}})
   if(promise.data.Response === 'True'){
-    //console.log(promise.data.Search)
     const results = promise.data.Search;
     return results.map(extractMovie);
   }
@@ -23,9 +23,10 @@ export const fetchData = async (data) => {
 export const fetchMovieData = async (name) => {
   const promise = await axios.get('http://www.omdbapi.com/?apikey=9abbfc0&', {params: {t: name}})
   if(promise.status === 200){
-    console.log(promise.data)
+    const movie_data = promise.data
+    return movie_data
   }
   else
-    return 'hello';
+    return false;
 }
 
