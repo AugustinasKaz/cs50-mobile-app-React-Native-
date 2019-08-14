@@ -1,12 +1,14 @@
 import axios from 'axios';
 
+
 const extractArticle = article => ({
    title: article.title,
-   date: article.first_published_date,
+   date: article.first_published_date.substring(5, 10),
    url: article.url,
    section: article.section,
    abstract: article.abstract,
-   picture: article.multimedia[1]
+   picture: article.multimedia[1],
+   author: article.byline
 });
 
 export const LiveFeed = async () =>{
