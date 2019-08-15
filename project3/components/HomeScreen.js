@@ -80,7 +80,7 @@ HomeScreen.navigationOptions = ({ navigation }) => {
     return {
       title: 'HOME',
       headerRight:(
-        <View style={{ margin: 20}}>
+        <View style={{ margin: 20, backgroundColor: '#cce6ff'}}>
         <TouchableOpacity onPress={() =>navigation.toggleDrawer()}>
           <Ionicons name="md-reorder" size={28} color="black"/>
           </TouchableOpacity>
