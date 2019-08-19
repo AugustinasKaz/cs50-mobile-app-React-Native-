@@ -3,6 +3,7 @@ import { Text, View, Dimensions, StyleSheet} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { TouchableOpacity, FlatList} from 'react-native-gesture-handler';
 import {Fetch_Books_Lists} from './api.js'
+import { withNavigation } from 'react-navigation';
 
 export default class BooksScreen extends React.Component {
   state={
@@ -13,14 +14,14 @@ export default class BooksScreen extends React.Component {
     Fetch_Books_Lists().then(response => this.setState({list_array: response}));
  }
 
- openList = (name) => {
-
+ openList = (list_name, list_published) => {
+  this.props.navigation.navigate('display2', {ln: list_name, lp: list_published})
  }
  
  display_lists = (list) => {
    const item = list.item
    return(
-        <TouchableOpacity onPress={()=> this.openList(item.name)}>
+        <TouchableOpacity onPress={()=> this.openList(item.name, item.published)}>
         <View style={styles.row}>
           <Text style={{color: 'white', marginRight: 15, fontSize: 18}}>{item.published}</Text>
           <View style={styles.column}>

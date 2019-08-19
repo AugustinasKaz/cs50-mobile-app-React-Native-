@@ -2,6 +2,7 @@ import React from 'react';
 import { createDrawerNavigator, createStackNavigator, createAppContainer } from 'react-navigation';
 import HomeScreen from './components/HomeScreen.js'
 import BooksScreen from './components/BooksScreen.js'
+import ListScreen from './components/ListScreen.js'
 
 export default class App extends React.Component {
   render() {
@@ -14,7 +15,8 @@ const AppNavigator = createStackNavigator({
 });
 
 const Books = createStackNavigator({
-  route1: BooksScreen
+   display1: BooksScreen,
+   display2: ListScreen,
 })
 const DrawerNavigator = createDrawerNavigator({
   "Home": AppNavigator,
