@@ -28,7 +28,7 @@ export default class HomeScreen extends React.Component {
           <Text style={{alignSelf:'center', marginRight: 15, fontSize: 14}}>{item.date}</Text>
           <View style={styles.column}>
           <Text style={{fontWeight: "bold", fontSize: 12, fontFamily: 'monospace'}}>{item.section}</Text>
-          <Text style={{fontWeight: "bold", fontSize: 16}}>{item.title}</Text>
+          <Text style={{fontWeight: "bold", fontSize: 16, color: '#cce6ff'}}>{item.title}</Text>
           <Text>{item.abstract}</Text>
           <Text style={{fontWeight: "bold", fontSize: 10, fontFamily: 'sans-serif-light', marginTop: 5}}>{item.author}</Text>
           </View>
@@ -45,7 +45,7 @@ export default class HomeScreen extends React.Component {
             <TouchableOpacity> 
             <Image resizeMode='stretch' style={styles.img_sm} source={{uri:item.picture.url}}/>
             <Text style={{fontWeight: "bold", fontSize: 10, fontFamily: 'monospace'}}>{item.section}</Text>
-            <Text style={{fontWeight: "bold", fontSize: 14}}>{item.title}</Text>
+            <Text style={{color: '#cce6ff', fontWeight: "bold", fontSize: 14}}>{item.title}</Text>
           </TouchableOpacity>
           <ScrollView>
           <Text>{item.abstract}</Text>
@@ -79,8 +79,11 @@ export default class HomeScreen extends React.Component {
 HomeScreen.navigationOptions = ({ navigation }) => {
     return {
       title: 'HOME',
+      headerStyle: {
+        backgroundColor: '#cce6ff',
+      },
       headerRight:(
-        <View style={{ margin: 20, backgroundColor: '#cce6ff'}}>
+        <View style={{ margin: 20}}>
         <TouchableOpacity onPress={() =>navigation.toggleDrawer()}>
           <Ionicons name="md-reorder" size={28} color="black"/>
           </TouchableOpacity>
