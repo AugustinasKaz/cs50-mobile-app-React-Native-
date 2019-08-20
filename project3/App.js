@@ -18,10 +18,15 @@ const Books = createStackNavigator({
    display1: BooksScreen,
    display2: ListScreen,
 })
-const DrawerNavigator = createDrawerNavigator({
-  "Home": AppNavigator,
-  "NYT best-sellers lists": Books,
-  
-});
+const DrawerNavigator = createDrawerNavigator(
+  {
+  "Home": {screen: AppNavigator},
+  "NYT best-sellers lists": {screen: Books},
+  },
+  {
+  initialRouteName: 'Home',
+  drawerBackgroundColor: '#cce6ff',
+ },
+ );
 
 const AppContainer = createAppContainer(DrawerNavigator);

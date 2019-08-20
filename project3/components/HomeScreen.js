@@ -42,7 +42,7 @@ export default class HomeScreen extends React.Component {
         <View style={styles.article_sm}>
             <Text style={styles.date_sm}>{item.date}</Text>
             <View style={styles.column_sm}>
-            <TouchableOpacity> 
+            <TouchableOpacity onPress={ () => this.openArticle(item.url)}> 
             <Image resizeMode='stretch' style={styles.img_sm} source={{uri:item.picture.url}}/>
             <Text style={{fontWeight: "bold", fontSize: 10, fontFamily: 'monospace'}}>{item.section}</Text>
             <Text style={{color: '#cce6ff', fontWeight: "bold", fontSize: 14}}>{item.title}</Text>

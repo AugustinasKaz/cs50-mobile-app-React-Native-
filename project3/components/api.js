@@ -22,7 +22,8 @@ const extractList = list => ({
  const extractList_Book = book => ({
     name: book.title,
     author: book.author,
-    url: book.amazon_product_url
+    url: book.amazon_product_url,
+    image: book.book_image
  });
 
 export const LiveFeed = async () =>{
