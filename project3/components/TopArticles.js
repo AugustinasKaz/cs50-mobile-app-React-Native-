@@ -78,7 +78,7 @@ export default class HomeScreen extends React.Component {
 
 HomeScreen.navigationOptions = ({ navigation }) => {
     return {
-      title: this.props.navigation.getParam('name'),
+      title: navigation.getParam('name'),
       headerStyle: {
         backgroundColor: '#cce6ff',
       },

@@ -7,7 +7,7 @@ import { withNavigation } from 'react-navigation';
 class TopStoriesScreen extends React.Component {
 
   openStories = (section_name) =>{
-    this.props.navigation.navigate('screen2', {name: 'asdd'})
+    this.props.navigation.navigate('screen2', {name: section_name})
   }
   render() {
     return (

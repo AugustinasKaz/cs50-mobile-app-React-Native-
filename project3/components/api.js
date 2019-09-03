@@ -5,7 +5,7 @@ import axios from 'axios';
 //creates object from each array element
 const extractArticle = article => ({
    title: article.title,
-   date: article.first_published_date.substring(5, 10),
+   date: article.published_date.substring(5, 10),
    url: article.url,
    section: article.section,
    abstract: article.abstract,
