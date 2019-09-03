@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, StyleSheet, Image, Dimensions, Linking } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { TouchableOpacity, FlatList, ScrollView } from 'react-native-gesture-handler';
-import {LiveFeed} from './api.js'
+import {TopArticles} from './api.js'
 
 export default class HomeScreen extends React.Component {
   state ={
@@ -10,7 +10,7 @@ export default class HomeScreen extends React.Component {
   }
 
   componentDidMount(){
-     LiveFeed().then(response => this.setState({display: response}));
+     TopArticles(this.props.navigation.getParam('name')).then(response => this.setState({display: response}));
   }
 
   openArticle = (url1) => {
@@ -78,7 +78,7 @@ export default class HomeScreen extends React.Component {
 
 HomeScreen.navigationOptions = ({ navigation }) => {
     return {
-      title: 'HOME',
+      title: this.props.navigation.getParam('name'),
       headerStyle: {
         backgroundColor: '#cce6ff',
       },

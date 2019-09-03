@@ -3,6 +3,8 @@ import { createDrawerNavigator, createStackNavigator, createAppContainer } from 
 import HomeScreen from './components/HomeScreen.js'
 import BooksScreen from './components/BooksScreen.js'
 import ListScreen from './components/ListScreen.js'
+import TopStoriesScreen from './components/TopStoriesScreen.js'
+import TopArticles from './components/TopArticles.js'
 
 export default class App extends React.Component {
   render() {
@@ -18,15 +20,20 @@ const Books = createStackNavigator({
    display1: BooksScreen,
    display2: ListScreen,
 })
-const DrawerNavigator = createDrawerNavigator(
-  {
-  "Home": {screen: AppNavigator},
-  "NYT best-sellers lists": {screen: Books},
-  },
-  {
+
+const Stories = createStackNavigator({
+  screen1: TopStoriesScreen,
+  screen2: TopArticles
+})
+
+const DrawerNavigator = createDrawerNavigator({
+  "Home": AppNavigator,
+  "NYT Best-Sellers Lists": Books,
+  "NYT Top Stories": Stories,
+},
+{
   initialRouteName: 'Home',
   drawerBackgroundColor: '#cce6ff',
- },
- );
+});
 
 const AppContainer = createAppContainer(DrawerNavigator);

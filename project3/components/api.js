@@ -9,7 +9,7 @@ const extractArticle = article => ({
    url: article.url,
    section: article.section,
    abstract: article.abstract,
-   picture: article.multimedia[1],
+   picture: article.multimedia,
    author: article.byline
 });
 
@@ -41,6 +41,11 @@ export const Fetch_Books_Lists = async () =>{
 export const Fetch_Books = async (name, date) =>{
     const promise = await axios.get('https://api.nytimes.com/svc/books/v3/lists/'+date+'/'+name+'.json?api-key=3EZ6bGrM9ZfGjkDiWMi0pxwlzpp9dBhv ')
     const results = promise.data.results.books
-    //console.log(results)
     return results.map(extractList_Book);
+}
+
+export const TopArticles = async(name) =>{
+    const promise = await axios.get('https://api.nytimes.com/svc/topstories/v2/'+name+'.json?api-key=3EZ6bGrM9ZfGjkDiWMi0pxwlzpp9dBhv')
+    const results = promise.data.results;
+    return results.map(extractArticle);
 }
