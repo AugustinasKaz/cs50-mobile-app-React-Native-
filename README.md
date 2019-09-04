@@ -3,6 +3,9 @@
 - React Native
 - JSX
 
-### Project1 - Pomodoro timer
+### Project 1 - Pomodoro Timer
+
+Pomodoro timer using React Native.It will vibrate to tell you when to take breaks or resume working, based on somedetermined values. 
+
 
 ![](demos/project3.gif)
