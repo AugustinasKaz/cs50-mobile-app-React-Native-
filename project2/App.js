@@ -9,6 +9,7 @@ export default class App extends React.Component {
     return <AppContainer />;
   }
 }
+
 const MyNavigator = createStackNavigator({
     route1: HomeScreen,
     route2: MovieScreen,

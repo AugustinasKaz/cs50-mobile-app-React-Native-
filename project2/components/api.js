@@ -1,7 +1,5 @@
 import axios from 'axios'
 
-
-
 const extractMovie = movie => ({
   title: movie.Title,
   type: movie.Type,

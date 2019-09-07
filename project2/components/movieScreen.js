@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, Text,Image, Dimensions} from 'react-native';
+import {StyleSheet, View, Text,Image, Dimensions, ProgressBarAndroid,ScrollView} from 'react-native';
 import {fetchMovieData} from './api.js'
 
 
@@ -22,9 +22,9 @@ export default class Home extends React.Component{
   }    
     render(){
        const item = this.state.data;
-       console.log(item)
         return(
             <View style={styles.container}>
+              <ScrollView >
               <View style={styles.container_small}>
                <Text style={styles.txt_small}>{item.Country} | {item.Genre} | {item.Runtime}</Text>
               </View>
@@ -38,7 +38,9 @@ export default class Home extends React.Component{
                <Text style={{fontWeight: "bold"}}>Writer</Text> : {item.Writer}{'\n'}
                <Text style={{fontWeight: "bold"}}>Actors</Text> : {item.Actors}</Text>
                </View>
+               </ScrollView>
             </View>
+            
         );
     }
 }
@@ -66,6 +68,8 @@ const styles = StyleSheet.create({
     borderColor: '#809fff'
   },
   txt_small:{
+    color: '#002080',
+    opacity: 0.8,
     fontSize: 18,
     alignSelf: 'center',
   },
@@ -85,3 +89,6 @@ const styles = StyleSheet.create({
 
 
 
+/*<View>
+               <ProgressBarAndroid styleAttr="Horizontal" indeterminate={false} progress={0.5}/>
+               </View>*/

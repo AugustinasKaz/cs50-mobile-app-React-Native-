@@ -3,6 +3,7 @@ import {StyleSheet, View, Text, FlatList, TouchableOpacity, Image,} from 'react-
 import {fetchData} from './api.js'
 import { withNavigation } from 'react-navigation';
 
+
 class List extends React.Component{
     constructor(props){
      super(props)
@@ -14,8 +15,7 @@ class List extends React.Component{
     componentDidUpdate(prevProps){
         if(this.props.search !== prevProps.search)
             fetchData(this.props.search).then(response => { 
-               if(response !== false) 
-                 this.setState({array: response})
+                this.setState({array: response})
             });                   
     }
     
@@ -24,6 +24,20 @@ class List extends React.Component{
     }
     
     render(){
+        if(this.state.array === ''){
+            return(
+                <View>
+                    <Text style={styles.intro_txt}>Search Results</Text>
+                </View>
+            )
+        }
+        else if(this.state.array === false){
+            return(
+                <View>
+                    <Text style={styles.intro_txt}>No matching results </Text>
+                </View>
+            )
+        }
         return(
             <View style={styles.list}>
                <FlatList
@@ -47,6 +61,7 @@ class List extends React.Component{
         );
     }
 }
+
 
 export default withNavigation(List);
 
@@ -86,16 +101,14 @@ const styles = StyleSheet.create({
     },
     list:{
         flex: 1,
+    },
+    intro_txt:{
+        color: '#002080',
+        opacity: 0.6,
+        alignSelf: 'center',
+        fontSize:28,
+
     }
 });
 
 
-/*<FlatList
-                data={this.state.array}
-                keyExtractor={item => item.id}
-                renderItem={obj =>
-                <TouchableOpacity  onPress={()=> this.PressMovie(obj.item.title)} >
-                <Image source={{uri: obj.item.poster_url}} style={styles.img}/>
-                <Text>{obj.item.title}</Text>
-                </TouchableOpacity>}>
-                </FlatList>*/
