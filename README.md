@@ -2,6 +2,8 @@
 
 - React Native
 - JSX
+- React Navigation
+- Expo
 
 ### Project 1 - Pomodoro Timer
 
